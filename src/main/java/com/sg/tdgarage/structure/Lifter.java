@@ -1,6 +1,7 @@
 package com.sg.tdgarage.structure;
 
-import com.sg.tdgarage.core.Constant;
+import com.sg.tdgarage.configure.LiftingTime;
+import com.sg.tdgarage.configure.Constant;
 
 public class Lifter {
 //    //状态

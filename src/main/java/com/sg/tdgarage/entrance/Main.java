@@ -2,7 +2,7 @@ package com.sg.tdgarage.entrance;
 
 import com.sg.tdgarage.configure.ParkingLotConfiguration;
 import com.sg.tdgarage.core.Allocator;
-import com.sg.tdgarage.core.Constant;
+import com.sg.tdgarage.configure.Constant;
 import com.sg.tdgarage.event.EventDriver;
 import com.sg.tdgarage.event.EventRecorder;
 import com.sg.tdgarage.structure.*;

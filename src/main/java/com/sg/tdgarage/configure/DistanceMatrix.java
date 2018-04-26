@@ -1,9 +1,9 @@
-package com.sg.tdgarage.structure;
+package com.sg.tdgarage.configure;
 
-public class DistanceGraph {
+public class DistanceMatrix {
     double[][] distances = new double[11][];
 
-    public DistanceGraph() {
+    public DistanceMatrix() {
         distances[0] = new double[]{};
         distances[1] = new double[]{9.052};
         distances[2] = new double[]{5.552, 3.802};

@@ -26,30 +26,40 @@ public class Allocator {
             return;
         }
         Bus bus = busQueue.poll();
-        Building building  = lot.allocateParkingSpot(departureBus, bus, time);
+        Building building = lot.allocateParkingSpot(departureBus, bus, time);
         EventRecorder.record(new MessageEvent(time, building, departureBus, "发车"));
         EventDriver.newEnvent(new DepartureEvent(bus, this));
     }
 
+    /**
+     * 最早发车时间前需要预先出库一部分车辆到缓冲区
+     * 按照scanSequence所配置的顺序，对称的使用每一对车库。
+     * 使用每层离升降机最远的四个车位作为预先出库车辆的分配位置
+     * 为了简化操作尽快展示，此部分代码多为常数，后续可改为配置参数，配置预先出库算法。
+     */
     public void prepare() {
         Building[] buildings = lot.getBuildings();
-        int floor = 4;
-        for (Building building : buildings) {
-            if (building == null) {
-                continue;
-            }
-            building.useParkingSpot(floor, 1);
-            building.useParkingSpot(floor, 10);
-            if (floor == 4) {
-                floor = 3;
-            } else {
-                floor = 4;
-            }
+        int len = buildings.length;
+        for (int i = 1; i < len; i += 2) {
+            // 针对目前的scanSequence，每一对车库的第一时间块所使用的shuttle
+            // 基数车库使用的是4层的shuttle
+            // 偶数车库使用的是3层的shuttle
+            // 为了简化代码，目前数值使用的常数直接写入的方式。后续可以改为参数传入
+            // 配置预先出库算法。
+            buildings[i].useParkingSpot(4, 1);
+            buildings[i].useParkingSpot(4, 10);
+            buildings[i + 1].useParkingSpot(3, 1);
+            buildings[i + 1].useParkingSpot(3, 1);
         }
+
+        // 根据上面配置的车位数，根据发车顺序，选出相同数量的若干辆车，
+        // 并产生发车事件，作为事件驱动的初始状态。
         for (int i = 0; i < 8; ++i) {
             Bus bus = busQueue.poll();
             EventDriver.newEnvent(new DepartureEvent(bus, this));
         }
+
+        // 设置偶数楼shuttle归属。
         buildings[2].moveShuttleHere(3);
         buildings[4].moveShuttleHere(3);
     }

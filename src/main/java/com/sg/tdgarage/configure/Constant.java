@@ -1,4 +1,4 @@
-package com.sg.tdgarage.core;
+package com.sg.tdgarage.configure;
 
 import com.sg.tdgarage.structure.TimeSpot;
 

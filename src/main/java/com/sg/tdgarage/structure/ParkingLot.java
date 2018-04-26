@@ -2,7 +2,7 @@ package com.sg.tdgarage.structure;
 
 import com.sg.tdgarage.configure.ParkingLotConfiguration;
 import com.sg.tdgarage.configure.ShuttleConfiguration;
-import com.sg.tdgarage.core.Constant;
+import com.sg.tdgarage.configure.Constant;
 import com.sg.tdgarage.event.EventRecorder;
 import com.sg.tdgarage.event.MessageEvent;
 
@@ -29,7 +29,7 @@ public class ParkingLot {
             int[] ownerNos = shuttleConfig.owners;
             for (int floor = 2; floor <= floors; ++floor) {
                 Building[] owners = new Building[]{buildings[ownerNos[0]], buildings[ownerNos[1]]};
-                Shuttle shuttle = new Shuttle(owners, floor);
+                Shuttle shuttle = new Shuttle(owners, floor, config.scanSequence);
                 for (Building owner : owners) {
                     owner.setShuttle(floor, shuttle);
                 }

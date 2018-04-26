@@ -1,6 +1,6 @@
 package com.sg.tdgarage.structure;
 
-import com.sg.tdgarage.core.Constant;
+import com.sg.tdgarage.configure.Constant;
 import com.sg.tdgarage.event.EventRecorder;
 import com.sg.tdgarage.event.MessageEvent;
 
@@ -43,13 +43,13 @@ public class Shuttle {
      */
     private TimeSpot end;
 
-    public Shuttle(Building[] owners, int floor) {
+    public Shuttle(Building[] owners, int floor, int[][] scanSequence) {
         this.status = Status.STOP;
         this.position = new PSPosition(floor, Constant.LIFTER_SPOT_NO);
         this.owners = owners;
         this.currentBuilding = owners[0];
-        owners[0].setFloorScanSequence(new int[]{4, 2, 3});
-        owners[1].setFloorScanSequence(new int[]{3, 4, 2});
+        owners[0].setFloorScanSequence(scanSequence[0]);
+        owners[1].setFloorScanSequence(scanSequence[1]);
         this.end = Constant.INIT_ZERO_TIME;
     }
 

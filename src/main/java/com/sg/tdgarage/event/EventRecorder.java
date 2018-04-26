@@ -1,6 +1,6 @@
 package com.sg.tdgarage.event;
 
-import com.sg.tdgarage.core.Constant;
+import com.sg.tdgarage.configure.Constant;
 
 import java.io.File;
 import java.io.FileNotFoundException;

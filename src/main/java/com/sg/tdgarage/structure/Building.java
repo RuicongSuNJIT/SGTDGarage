@@ -1,12 +1,13 @@
 package com.sg.tdgarage.structure;
 
 import com.sg.tdgarage.configure.BuildingConfiguration;
-import com.sg.tdgarage.core.Constant;
+import com.sg.tdgarage.configure.DistanceMatrix;
+import com.sg.tdgarage.configure.Constant;
 
 public class Building {
     private int no;
     private ParkingSpot[][] spots;
-    private DistanceGraph distanceGraph;
+    private DistanceMatrix distanceMatrix;
     private Lifter lifter;
     private Shuttle[] shuttles;
     private int allocatingFloor;
@@ -16,7 +17,7 @@ public class Building {
 
     public Building(int no, BuildingConfiguration config) {
         this.no = no;
-        this.distanceGraph = config.distanceGraph;
+        this.distanceMatrix = config.distanceMatrix;
         this.spots = new ParkingSpot[config.floors + 1][];
         this.shuttles = new Shuttle[config.floors + 1];
 
@@ -97,7 +98,7 @@ public class Building {
     }
 
     public double getDistance(int spotNum) {
-        return distanceGraph.getDistance(spotNum, Constant.LIFTER_SPOT_NO);
+        return distanceMatrix.getDistance(spotNum, Constant.LIFTER_SPOT_NO);
     }
 
     public int getBuildingNo() {
