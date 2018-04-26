@@ -28,16 +28,13 @@ public class BusLine {
     /**
      * 排序器。优先级数值越高，越靠前。
      */
-    public static Comparator<BusLine> comp = new Comparator<BusLine>() {
-        @Override
-        public int compare(BusLine o1, BusLine o2) {
-            if (o1.priority > o2.priority) {
-                return -1;
-            } else if (o1.priority < o2.priority) {
-                return 1;
-            } else {
-                return 0;
-            }
+    public static Comparator<BusLine> comp = (busLine1, busLine2) -> {
+        if (busLine1.priority > busLine2.priority) {
+            return -1;
+        } else if (busLine1.priority < busLine2.priority) {
+            return 1;
+        } else {
+            return 0;
         }
     };
 
@@ -46,7 +43,7 @@ public class BusLine {
         return "BusLine: " + name + " | " + priority;
     }
 
-    public Bus getNextBus() {
+    public Bus getNextBsus() {
         if (done) {
             return null;
         }

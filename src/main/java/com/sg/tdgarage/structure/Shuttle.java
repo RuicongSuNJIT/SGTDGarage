@@ -107,6 +107,10 @@ public class Shuttle {
         return this;
     }
 
+    /**
+     *
+     * @param oldBuilding 当前所在的（即要离开的）车库
+     */
     public void leaveBuilding(Building oldBuilding) {
         Building newBuilding;
 
@@ -148,7 +152,6 @@ public class Shuttle {
 
     @Override
     public String toString() {
-
         return "[Shuttle[Floor " + position.getFloor() + "]]";
     }
 }

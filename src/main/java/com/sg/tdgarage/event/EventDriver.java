@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 public class EventDriver {
     private static PriorityQueue<Event> eventQueue = new PriorityQueue<>();
 
-    public static void newEnvent(Event event){
+    public static void newEvent(Event event){
         eventQueue.add(event);
     }
 

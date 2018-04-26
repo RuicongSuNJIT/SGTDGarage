@@ -20,15 +20,26 @@ public class Allocator {
         this.lineList = lineList;
     }
 
+    /**
+     * 每当一辆车发车，选择发车队列的下一辆车，
+     * 为它分配一个车位，生成它的发车事件，并将此事件加入队列。
+     *
+     * @param departureBus 处理的发车事件所代表的将要出发的车
+     * @param time 发车时间
+     */
     public void schedule(Bus departureBus, TimeSpot time) {
+        // 如果发车队列以空，即出库完毕。则直接返回。
         if (busQueue.isEmpty()) {
             EventRecorder.record(new MessageEvent(time, null, departureBus, "发车"));
             return;
         }
+        // 选择即将出发的下一辆车，
         Bus bus = busQueue.poll();
+        // 为它分配一个车位，尽量保证它准发发车
         Building building = lot.allocateParkingSpot(departureBus, bus, time);
         EventRecorder.record(new MessageEvent(time, building, departureBus, "发车"));
-        EventDriver.newEnvent(new DepartureEvent(bus, this));
+        // 生成它的发车事件，并加入队列。
+        EventDriver.newEvent(new DepartureEvent(bus, this));
     }
 
     /**
@@ -56,7 +67,7 @@ public class Allocator {
         // 并产生发车事件，作为事件驱动的初始状态。
         for (int i = 0; i < 8; ++i) {
             Bus bus = busQueue.poll();
-            EventDriver.newEnvent(new DepartureEvent(bus, this));
+            EventDriver.newEvent(new DepartureEvent(bus, this));
         }
 
         // 设置偶数楼shuttle归属。

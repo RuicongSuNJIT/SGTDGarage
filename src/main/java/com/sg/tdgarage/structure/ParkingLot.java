@@ -51,6 +51,15 @@ public class ParkingLot {
         return building;
     }
 
+    /**
+     * 车位分配算法
+     *
+     * @param departureBus
+     * @param bus 要分配车位的车
+     * @param time 当前时间点（公交车出发的时间）
+     * @return 返回操作的车库 （用于打印记录）
+     */
+
     public Building allocateParkingSpot(Bus departureBus, Bus bus, TimeSpot time) {
         Building building = nextBuilding();
         ParkingSpot spot = building.getParkingSpot();

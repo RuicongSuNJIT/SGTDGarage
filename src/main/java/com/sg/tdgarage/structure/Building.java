@@ -60,16 +60,23 @@ public class Building {
         return shuttles[allocatingFloor];
     }
 
+    /**
+     * 根据之前设置的scanSequence，按照到升降机由远及近的方式返回下一个可用的车位。
+     *
+     * @return 返回下一个可用的车位。
+     */
     public ParkingSpot getParkingSpot() {
         if (done) {
             return null;
         }
+        // 根据scanSequence，根据获得当前正在分配的楼层
         allocatingFloor = getAllocatingFloor();
         ParkingSpot chosenSpot = null;
         for (ParkingSpot spot : spots[allocatingFloor]) {
             if (spot == null) {
                 continue;
             }
+            // 选择下一个空的，距离最远的车位。
             if (spot.isEmpty()) {
                 if (chosenSpot == null ||
                         getDistance(spot.getSpotNo()) > getDistance(chosenSpot.getSpotNo())) {
@@ -77,15 +84,22 @@ public class Building {
                 }
             }
         }
+        // 如果选择到，则返回车位。
         if (chosenSpot != null) {
             return chosenSpot;
         }
+        // 如果选择结果为空，说明本层车位已分配完毕。此时将shuttle移向
         shuttles[allocatingFloor].leaveBuilding(this);
+
+        // 本层已分配完毕，指向下一个scanSequence指示的楼层
         ++scanIdx;
+
+        // 如果完成所有楼层，标记结束
         if (scanIdx == floorScanSequence.length) {
             done = true;
             return null;
         }
+        // 重新开始一次选取车位
         return getParkingSpot();
     }
 

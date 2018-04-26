@@ -8,6 +8,13 @@ public class TimeSpot {
     private final int s;
     private final int secs;
 
+    /**
+     * 将表示时间的字符串转换成时间点对象
+     *
+     * @param time 表示时间的字符串，格式要求 - h:mm:ss
+     * @return 如果成功，返回解析结果；如果失败，则返回null。
+     */
+
     public static TimeSpot parseTimeSpot(String time) {
         String[] timeSplit = time.split(":");
         int h, m, s;

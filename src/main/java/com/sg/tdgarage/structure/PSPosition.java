@@ -1,5 +1,8 @@
 package com.sg.tdgarage.structure;
 
+/**
+ * 单库内，相对位置。
+ */
 public class PSPosition {
     /**
      * 车位所属楼层: 2, 3, 4

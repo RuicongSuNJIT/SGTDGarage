@@ -73,20 +73,21 @@ public class Bus {
         return this;
     }
 
-    public static Comparator<Bus> comp = new Comparator<Bus>() {
-        @Override
-        public int compare(Bus o1, Bus o2) {
-            int interval = o1.departureTime.interval(o2.departureTime);
-            if (interval == 0) {
-                double diffPriority = o1.busLine.getPriority() - o2.busLine.getPriority();
-                if (diffPriority > 0) {
-                    return -1;
-                } else if (diffPriority < 0) {
-                    return 1;
-                }
+    /**
+     * 优先级比较，跟据发车时间和线路优先级，进行比较
+     * 用于排序
+     */
+    public static Comparator<Bus> comp = (bus1, bus2) -> {
+        int interval = bus1.departureTime.interval(bus2.departureTime);
+        if (interval == 0) {
+            double diffPriority = bus1.busLine.getPriority() - bus2.busLine.getPriority();
+            if (diffPriority > 0) {
+                return -1;
+            } else if (diffPriority < 0) {
+                return 1;
             }
-            return interval;
         }
+        return interval;
     };
 
     public TimeSpot getDepartureTime() {
